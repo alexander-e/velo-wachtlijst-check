@@ -98,15 +98,22 @@ def writeToFile(date, rank, file=datapath):
 
 def plotEvolution(dates, ranks, file=plotpath):
 	""" Methode om een plot te maken van de evolutie """
+	plotdates = [dates[0]]
+	plotranks = [ranks[0]]
 	try:
+		for i in range(1, len(ranks)):
+			if ranks[i] < plotranks[-1]:
+				print("Lower number: {}".format(ranks[i]))
+				plotranks.append(ranks[i])
+				plotdates.append(dates[i])
 		fig = plt.figure()
 		ax = fig.add_subplot(111)
-		ax.plot_date(dates, ranks, '.-')
+		ax.plot_date(plotdates, plotranks, '.-')
 		ax.set_ylim(0, 15000)
 		ax.set_xlabel('Datum')
 		ax.set_ylabel('Positie op wachtlijst')
-		ax.fmt_xdata = dts.DateFormatter('%d-%m-%Y')
 		# Data in plot beter weergeven
+		ax.xaxis.set_major_formatter(dts.DateFormatter('%d-%m-%Y'))
 		fig.autofmt_xdate()
 		# Plot opslaan
 		fig.savefig(plotpath, bbox_inches='tight')
