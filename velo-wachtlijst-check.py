@@ -103,7 +103,6 @@ def plotEvolution(dates, ranks, file=plotpath):
 	try:
 		for i in range(1, len(ranks)):
 			if ranks[i] < plotranks[-1]:
-				print("Lower number: {}".format(ranks[i]))
 				plotranks.append(ranks[i])
 				plotdates.append(dates[i])
 		fig = plt.figure()
