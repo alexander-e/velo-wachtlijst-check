@@ -69,11 +69,18 @@ def getRank():
 	try:
 		# Positie op de wachtlijst terugvinden in de HTML
 		print('// Positie op wachtlijst halen uit HTML')
-		searchstring = 'Je huidige positie op de wachtlijst is'
-		startInd = source.find(searchstring)
-		endInd = source.find('.', startInd)
-		num = source[startInd+len(searchstring)+1:endInd]
-		num = int(num) # Parse to integer
+		try:
+			searchstring = 'Je huidige positie op de wachtlijst is'
+			startInd = source.find(searchstring)
+			endInd = source.find('.', startInd)
+			num = source[startInd+len(searchstring)+1:endInd]
+			num = int(num) # Parse to integer
+			print('// Huidige positie is {}'.format(num))
+		except:
+			searchstring = 'Goed nieuws'
+			startInd = source.find(searchstring)
+			num = 0
+			print('// FEEST, het wachten is voorbij')
 		# E-mails verwijderen
 		deleteEmails()
 		return num
